@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -15,8 +14,8 @@
     <img src="Assets/Images/logo.png" alt="logo" class="logo">
     <nav class="navbalk">
       <ul class="navlinks">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Bestellen</a></li>
+        <li><a href="index.php">Home</a></li>
+        <li><a href="bestellen.php">Bestellen</a></li>
         <li><a href="#">Log In</a></li>
         <li><a href="#">Contact</a></li>
       </ul>
