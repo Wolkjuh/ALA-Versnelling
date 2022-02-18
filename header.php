@@ -15,9 +15,10 @@
     <nav class="navbalk">
       <ul class="navlinks">
         <li><a href="index.php">Home</a></li>
+        <li><a href="prijzenlijst.php">Prijzenlijst</a></li>
         <li><a href="bestellen.php">Bestellen</a></li>
-        <li><a href="#">Log In</a></li>
         <li><a href="#">Contact</a></li>
       </ul>
     </nav>
   </header>
+  <main>

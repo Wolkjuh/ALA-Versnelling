@@ -4,16 +4,6 @@ include_once 'header.php';
 include_once "XLSX/simplexml.php";
 include_once "XLSX/simplexmlgen.php";
 
-// if ( $xlsx = Shuchkin\SimpleXLSX::parse($_POST['excelbestand']) ) {
-// 	echo '<table section="testxml1" border="1" cellpadding="3" style="margin="2rem">';
-// 	foreach( $xlsx->rows() as $r ) {
-// 		echo '<tr><td style="padding: 10px">'.implode('</td><td style="padding: 10px">', $r ).'</td></tr>';
-// 	}
-// 	echo '</table>';
-// } else {
-// 	echo "Er is een fout opgetreden, controleer of dit een .xlsl bestand is en probeer het in enkele seconden opnieuw";
-// }
-
 $xlsx = Shuchkin\SimpleXLSX::parse($_POST['excelbestand']);	
 
 $naam = $xlsx->getCell(0, 'B6');
@@ -46,6 +36,3 @@ foreach ($excelRows as $value) {
 Shuchkin\SimpleXLSXGen::fromArray( $factuurBon )->saveAs("Factuurbon/Factuur_" . $naam . "_" . $klantennummer . ".xlsx");
 Shuchkin\SimpleXLSXGen::fromArray( $factuurBon )->downloadAs("Factuurbon/Factuur_" . $naam . "_" . $klantennummer . ".xlsx");
 header("Location: nabestelling.php");
-
-
-include_once 'footer.php';
