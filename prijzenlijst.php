@@ -15,6 +15,9 @@ if ($result = $conn->query($sql)) {
   echo "<td style='border:1px solid black;Font-size:18;Font-Weight:bold;padding:6px;background-color:rgb(33, 112, 33);box-shadow: 1px 1px 20px 1px'>";
   echo "Prijs";
   echo "</td>";
+  echo "<td style='border:1px solid black;Font-size:18;Font-Weight:bold;padding:6px;background-color:rgb(33, 112, 33);box-shadow: 1px 1px 20px 1px'>";
+  echo "Aantal";
+  echo "</td>";
   while ($row = $result->fetch_row()) {
     echo "<tr>";
     echo "<td style='border:1px solid black;text-align:center;padding:6px;background-color:rgb(117, 226, 117);box-shadow: 1px 1px 20px 1px'>";
@@ -24,13 +27,18 @@ if ($result = $conn->query($sql)) {
     echo $row[2]; 
     echo "</td>";
     echo "<td style='border:1px solid black;text-align:center;padding:6px;background-color:rgb(117, 226, 117);box-shadow: 1px 1px 20px 1px'>";
-    echo $row[3]; 
+    echo "€ " . $row[3]; 
+    echo "</td>";
+    echo "<td style='border:1px solid black;text-align:center;padding:6px;background-color:rgb(117, 226, 117);box-shadow: 1px 1px 20px 1px'>";
+    echo $row[4]; 
     echo "</td>";
     echo "</tr>";
   }
   echo "</table>";
   $result->close();
 }
+
+
 ?>
 
 <?php
