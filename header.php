@@ -1,3 +1,7 @@
+<?php
+    session_start();
+?>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -17,6 +21,14 @@
         <li><a href="index.php">Home</a></li>
         <li><a href="prijzenlijst.php">Prijzenlijst</a></li>
         <li><a href="bestellen.php">Bestellen</a></li>
+        <?php
+          if (isset($_SESSION["useruid"])) {
+            echo "<li><a href='inkoop.php'>Inkoop</a></li>";
+            echo "<li><a href='includes/logout.inc.php'>Log Out</a></li>";
+          } else {
+            echo "<li><a href='login.php'>Log In</a></li>";
+          }
+        ?>
         <li><a href="#">Contact</a></li>
       </ul>
     </nav>

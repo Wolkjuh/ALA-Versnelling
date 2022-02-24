@@ -1,5 +1,4 @@
 <?php
-
 include_once 'header.php';
 include_once "XLSX/simplexml.php";
 include_once "XLSX/simplexmlgen.php";
@@ -42,7 +41,7 @@ foreach ($excelRows as $value) {
           $prijs2 += $value[4] * $aantal;
 
 
-          $updateSQL = "UPDATE product SET aantal = aantal-" . $aantal . " WHERE productnummer = " . $productID;
+          $updateSQL = "UPDATE product SET aantal = aantal+" . $aantal . " WHERE productnummer = " . $productID;
           $conn->query($updateSQL);
 
           // $vulbijSQL = "UPDATE product SET aantal = aantal+" . $aantal + $aantal / 2 . " WHERE productnummer = " . $productID;
@@ -61,6 +60,7 @@ $totaalprijsje = array('<center></center>', '<center></center>', '<center></cent
 
 array_push($factuurBon, $totaalprijsje);
 
-Shuchkin\SimpleXLSXGen::fromArray( $factuurBon )->saveAs("Factuurbon/Factuur_" . $naam . "_" . $klantennummer . ".xlsx");
-Shuchkin\SimpleXLSXGen::fromArray( $factuurBon )->downloadAs("Factuurbon/Factuur_" . $naam . "_" . $klantennummer . ".xlsx");
-header("Location: nabestelling.php");
+Shuchkin\SimpleXLSXGen::fromArray( $factuurBon )->downloadAs("Factuurbon/Inkoopbon_" . $naam . "_" . $klantennummer . ".xlsx");
+header('Location: ../prijzenlijst.php');
+
+?>

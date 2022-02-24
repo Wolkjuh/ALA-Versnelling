@@ -1,10 +1,14 @@
 <?php
 
 $servername = "localhost";
-$username = "root";
+$serveruser = "root";
 $password = "";
 $database = "alap4";
 
-$conn = new mysqli($servername, $username, $password, $database);
+$conn = mysqli_connect($servername, $serveruser, $password, $database);
+
+  if (!$conn) {
+    die("Connection Failed");
+  }
 
 ?>

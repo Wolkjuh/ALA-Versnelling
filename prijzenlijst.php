@@ -4,6 +4,7 @@ include 'Includes/db.inc.php';
 
 $sql = "SELECT * FROM product";
 if ($result = $conn->query($sql)) {
+  echo "<div class='overflow'>";
   echo "<table style='margin:3% auto 10%';>";
   echo "<tr>";
   echo "<td style='border:1px solid black;Font-size:18;Font-Weight:bold;padding:6px;background-color:rgb(33, 112, 33);box-shadow: 1px 1px 20px 1px'>";
@@ -35,6 +36,7 @@ if ($result = $conn->query($sql)) {
     echo "</tr>";
   }
   echo "</table>";
+  echo "</div>";
   $result->close();
 }
 
