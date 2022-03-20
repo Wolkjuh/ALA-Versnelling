@@ -4,18 +4,42 @@
 
 ?>
 
-<section class="bestelforum">
-  <h1 class="bestel-h1">Plaats bestelling</h1>
-  <article class="formbestelling">
-    <form action="bestellen.inc.php" method="POST">
-      <input type="file" id="excelbestand" name="excelbestand" accept=".xlsx">
-      <input type="submit" value="Plaats Bestelling">
-    </form>
-  </article>
-  <article class="downloadtag">
-    <a href="Bestelformulier.xlsx" id="downloadtag" download>Download Bestelformat</a>
-  </article>
-</section>
+<div class="bestelwrapper">
+  <section class="bestelforum">
+    <h1 class="bestel-h1">Plaats bestelling</h1>
+    <article class="formbestelling">
+      <form action="Includes/bestellen.inc.php" method="POST">
+        <input type="file" id="excelbestand" name="excelbestand" accept=".xlsx">
+        <input type="submit" value="Plaats Bestelling">
+      </form>
+    </article>
+    <article class="downloadtag">
+      <a href="Bestelformulier.xlsx" id="downloadtag" download>Download Bestelformat</a>
+    </article>
+  </section>
+  <?php
+    if (isset($_SESSION["useruid"])) {
+      if ($_SESSION["useruid"] == "Admin") {
+  ?>
+
+  <section class="bestelforum">
+    <h1 class="bestel-h1">Plaats inkoop</h1>
+    <article class="formbestelling">
+      <form action="inkoop.inc.php" method="POST">
+        <input type="file" id="excelbestand" name="excelbestand" accept=".xlsx">
+        <input type="submit" value="Plaats Bestelling">
+      </form>
+    </article>
+    <article class="downloadtag">
+      <a href="Bestelformulier.xlsx" id="downloadtag" download>Download Inkoopformat</a>
+    </article>
+  </section>
+
+  <?php
+    } 
+    }
+  ?>
+</div>
 
 
 

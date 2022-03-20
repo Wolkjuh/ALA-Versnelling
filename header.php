@@ -23,9 +23,12 @@
         <li><a href="prijzenlijst.php">Prijzenlijst</a></li>
         <?php
           if (isset($_SESSION["useruid"])) {
-            echo "<li><a href='bestellen.php'>Bestellen</a></li>";
             if ($_SESSION["useruid"] == "Admin") {
-              echo "<li><a href='inkoop.php'>Inkoop</a></li>";
+              echo "<li><a href='bestellen.php'>Inkoop</a></li>";
+            } else {
+              echo "<li><a href='bestellen.php'>Bestellen</a></li>";
+            }
+            if ($_SESSION["useruid"] == "Admin") {
               echo "<li><a href='modify.php'>Modify</a></li>"; 
               echo "<li><a href='signup.php'>Registreren</a></li>";
             }

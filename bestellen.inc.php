@@ -1,9 +1,9 @@
 <?php
 
-include_once 'header.php';
-include_once "XLSX/simplexml.php";
-include_once "XLSX/simplexmlgen.php";
-include_once 'Includes/db.inc.php';
+include_once '/header.php';
+include_once "/XLSX/simplexml.php";
+include_once "/XLSX/simplexmlgen.php";
+include_once '/Includes/db.inc.php';
 require 'PHPMailer/Exeption.php';
 require 'PHPMailer/PHPMailer.php';
 require 'PHPMailer/SMTP.php';
@@ -41,54 +41,6 @@ foreach ($excelRows as $value) {
           $aantal = $HoeveelheidEenheid ? $HoeveelheidEenheid : $HoeveelheidKg;
           $marge = 1;
 
-          switch ($klantennummer) {
-            case '7901':
-              $marge = 0.90;
-              break;
-            case '7902':
-              $marge = 0.43;
-              break;
-            case '7903':
-              $marge = 0.78;
-              break;
-            case '7904':
-              $marge = 0.98;
-              break;
-            case '7905':
-              $marge = 0.80;
-              break;
-            case '7906':
-              $marge = 0.87;
-              break;
-            case '7907':
-              $marge = 0.45;
-              break;
-            case '7908':
-              $marge = 0.90;
-              break;
-            case '7909':
-              $marge = 1.23;
-              break;
-            case '7910':
-              $marge = 0.96;
-              break;
-            case '7911':
-              $marge = 0.76;
-              break;
-            case '7912':
-              $marge = 0.86;
-              break;
-            case '7913':
-              $marge = 0.92;
-              break;
-            case '7914':
-              $marge = 0.67;
-              break;
-            default:
-              $marge = 1;
-              break;
-          }
-
           $prijs2 += $value[4] * $aantal;
           $prijs2 = number_format($prijs2 * $marge, 2);
 
@@ -108,9 +60,8 @@ $totaalprijsje = array('<center></center>', '<center></center>', '<center></cent
 
 array_push($factuurBon, $totaalprijsje);
 
-Shuchkin\SimpleXLSXGen::fromArray( $factuurBon )->saveAs("Factuurbon/Factuur_" . $naam . "_" . $klantennummer . ".xlsx");
-Shuchkin\SimpleXLSXGen::fromArray( $factuurBon )->downloadAs("Factuurbon/Factuur_" . $naam . "_" . $klantennummer . ".xlsx");
-header("Location: nabestelling.php");
+Shuchkin\SimpleXLSXGen::fromArray( $factuurBon )->saveAs("/Factuurbon/Factuur_" . $naam . "_" . $klantennummer . ".xlsx");
+Shuchkin\SimpleXLSXGen::fromArray( $factuurBon )->downloadAs("/Factuurbon/Factuur_" . $naam . "_" . $klantennummer . ".xlsx");
 
 
 
