@@ -58,12 +58,11 @@ html {
   width: 100%;
   height: 10vh;
   background-color: var(--backgroundcolor-primair);
-  margin: 0 auto;
+	text-align: center;
 }
 
 .navlinks ul {
-  margin: 0 auto;
-  display: block;
+	align-items: center;
 }
 
 .navlinks li {
@@ -71,10 +70,11 @@ html {
 }
 
 .navlinks a {
-  float: left;
+	float: left;
   color: #fff;
   text-decoration: none;
-  padding: 8px;
+	padding: 1em 2em 1.1em; 
+	font-size: 1.2rem;
 }
 
 .testxml1 {
@@ -209,4 +209,36 @@ html {
   height: 50vh;
   width: 40vw;
   overflow-y: scroll;
+}
+
+/* MODIFY FORM */
+
+.modifyformproduct {
+	max-width: min-content;
+	height: 30vh;
+	margin: 5em auto;
+	text-align: center;
+	border: 1px solid black;
+	background-color: rgb(60, 143, 54);
+	border-radius: 30px;
+	padding: 2rem;
+	box-shadow: 1px 1px 3px 3px;
+}
+
+.modifyformproduct h1 {
+	font-size: 1.5rem;
+}
+
+.modifymargin {
+	margin-top: 3rem;
+}
+
+.modifyformproduct input {
+	margin: 0.3rem;
+	text-align: center;
+	max-width: min-content;
+}
+
+#submitbuttonmodify {
+	width: 6rem;
 }

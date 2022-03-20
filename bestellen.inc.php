@@ -39,14 +39,61 @@ foreach ($excelRows as $value) {
           $HoeveelheidKg = $value[3];
           $prijs = $value[4];
           $aantal = $HoeveelheidEenheid ? $HoeveelheidEenheid : $HoeveelheidKg;
-          $prijs2 += $value[4] * $aantal;
+          $marge = 1;
 
+          switch ($klantennummer) {
+            case '7901':
+              $marge = 0.90;
+              break;
+            case '7902':
+              $marge = 0.43;
+              break;
+            case '7903':
+              $marge = 0.78;
+              break;
+            case '7904':
+              $marge = 0.98;
+              break;
+            case '7905':
+              $marge = 0.80;
+              break;
+            case '7906':
+              $marge = 0.87;
+              break;
+            case '7907':
+              $marge = 0.45;
+              break;
+            case '7908':
+              $marge = 0.90;
+              break;
+            case '7909':
+              $marge = 1.23;
+              break;
+            case '7910':
+              $marge = 0.96;
+              break;
+            case '7911':
+              $marge = 0.76;
+              break;
+            case '7912':
+              $marge = 0.86;
+              break;
+            case '7913':
+              $marge = 0.92;
+              break;
+            case '7914':
+              $marge = 0.67;
+              break;
+            default:
+              $marge = 1;
+              break;
+          }
+
+          $prijs2 += $value[4] * $aantal;
+          $prijs2 = number_format($prijs2 * $marge, 2);
 
           $updateSQL = "UPDATE product SET aantal = aantal-" . $aantal . " WHERE productnummer = " . $productID;
           $conn->query($updateSQL);
-
-          // $vulbijSQL = "UPDATE product SET aantal = aantal+" . $aantal + $aantal / 2 . " WHERE productnummer = " . $productID;
-          // $conn->query($vulbijSQL);
 
           $huidigeProduct = array('<center>' . $productID . '</center>', '<center>' . $productNaam . '</center>', '<center>' . $HoeveelheidEenheid . '</center>',   '<center>' . $HoeveelheidKg . '</center>',
            '<center>' . "€ " . $prijs . '</center>');
@@ -64,3 +111,9 @@ array_push($factuurBon, $totaalprijsje);
 Shuchkin\SimpleXLSXGen::fromArray( $factuurBon )->saveAs("Factuurbon/Factuur_" . $naam . "_" . $klantennummer . ".xlsx");
 Shuchkin\SimpleXLSXGen::fromArray( $factuurBon )->downloadAs("Factuurbon/Factuur_" . $naam . "_" . $klantennummer . ".xlsx");
 header("Location: nabestelling.php");
+
+
+
+
+
+
