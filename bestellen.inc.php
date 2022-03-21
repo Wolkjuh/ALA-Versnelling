@@ -1,9 +1,9 @@
 <?php
 
-include_once '/header.php';
-include_once "/XLSX/simplexml.php";
-include_once "/XLSX/simplexmlgen.php";
-include_once '/Includes/db.inc.php';
+include_once 'header.php';
+include_once "XLSX/simplexml.php";
+include_once "XLSX/simplexmlgen.php";
+include_once 'Includes/db.inc.php';
 require 'PHPMailer/Exeption.php';
 require 'PHPMailer/PHPMailer.php';
 require 'PHPMailer/SMTP.php';
@@ -30,6 +30,12 @@ array_push($factuurBon, $factuurBonTitel, $factuurBonNaamKlant, $factuurBonKlant
 $bestellingen = array();
 $prijs2 = 0;
 
+$nummerklant = $_POST['klantennummer'];
+
+$kortingselect = "SELECT korting FROM users WHERE klantnummer = " . $klantennummer;
+$kortingResult = $conn->query($kortingselect);
+$result = mysqli_fetch_row($kortingResult);
+
 foreach ($excelRows as $value) {
   if(is_numeric($value[0])) {
       if($value[2] != null || $value[3] != null) {
@@ -39,10 +45,12 @@ foreach ($excelRows as $value) {
           $HoeveelheidKg = $value[3];
           $prijs = $value[4];
           $aantal = $HoeveelheidEenheid ? $HoeveelheidEenheid : $HoeveelheidKg;
-          $marge = 1;
+
+
+          $korting = $result[0];
 
           $prijs2 += $value[4] * $aantal;
-          $prijs2 = number_format($prijs2 * $marge, 2);
+          $prijs2 = number_format($prijs2 / 100 * $korting, 2);
 
           $updateSQL = "UPDATE product SET aantal = aantal-" . $aantal . " WHERE productnummer = " . $productID;
           $conn->query($updateSQL);
@@ -50,18 +58,17 @@ foreach ($excelRows as $value) {
           $huidigeProduct = array('<center>' . $productID . '</center>', '<center>' . $productNaam . '</center>', '<center>' . $HoeveelheidEenheid . '</center>',   '<center>' . $HoeveelheidKg . '</center>',
            '<center>' . "€ " . $prijs . '</center>');
           array_push($factuurBon, $huidigeProduct);
-          
       }
   }
 }
 
-$totaalprijsje = array('<center></center>', '<center></center>', '<center></center>',   '<center></center>',
+$totaalprijsje = array('<center></center>', '<center></center>', '<center></center>',   '<center>' . "Korting: " . $korting . "%" .'</center>',
 '<center>' . "€ " . $prijs2  . '</center>');
 
 array_push($factuurBon, $totaalprijsje);
 
-Shuchkin\SimpleXLSXGen::fromArray( $factuurBon )->saveAs("/Factuurbon/Factuur_" . $naam . "_" . $klantennummer . ".xlsx");
-Shuchkin\SimpleXLSXGen::fromArray( $factuurBon )->downloadAs("/Factuurbon/Factuur_" . $naam . "_" . $klantennummer . ".xlsx");
+Shuchkin\SimpleXLSXGen::fromArray( $factuurBon )->saveAs("Factuurbon/Factuur_" . $naam . "_" . $klantennummer . ".xlsx");
+Shuchkin\SimpleXLSXGen::fromArray( $factuurBon )->downloadAs("Factuurbon/Factuur_" . $naam . "_" . $klantennummer . ".xlsx");
 
 
 

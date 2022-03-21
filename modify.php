@@ -9,23 +9,22 @@ if (isset($_SESSION["useruid"])) {
 ?>
 <div class="modifywrapper">
   <div class="modifyformproduct">
-    <h1>Modify Product</h1>
+    <h1>Modify User</h1>
     <div class="modifymargin">
       <form action="Includes/modify.inc.php" method="POST">
       
-        <input type="text" name="input1" id="input1" placeholder="Input 1">
+        <input type="text" name="klantennummer" id="klantennummer" placeholder="Klantennummer">
   
-        <select name="table2" id=""></select>
-  
-        <input type="checkbox" name="korting" id="korting">
-        <label for="product">Korting</label>
-        <input type="checkbox" name="prijs" id="prijs">
-        <label for="klant">Prijs</label>
+        <select name="modifyuser" id="modifyuser">
+          <option value="" selected></option>
+          <option value="klantennummer">Klantennummer</option>
+          <option value="korting">Korting</option>
+          <option value="email">Email</option>
+        </select>
       
-        <input type="text" name="input2" id="input2" placeholder="Input 2">
+        <input type="text" name="nieuwgegevenuser" id="nieuwgegevenuser" placeholder="Nieuw Gegeven">
       
-        <input type="submit" name="submit" value="submit" id="submitbuttonmodify">
-      
+        <input type="submit" name="submituser" value="Invoeren" id="submitbuttonmodify">
       </form>
     </div>
   </div>
@@ -35,18 +34,17 @@ if (isset($_SESSION["useruid"])) {
     <div class="modifymargin">
       <form action="Includes/modify.inc.php" method="POST">
       
-        <input type="text" name="input1" id="input1" placeholder="Input 1">
+        <input type="text" name="productnummer" id="productnummer" placeholder="Productnummer">
   
-        <select name="table2" id=""></select>
-  
-        <input type="checkbox" name="korting" id="korting">
-        <label for="product">Korting</label>
-        <input type="checkbox" name="prijs" id="prijs">
-        <label for="klant">Prijs</label>
+        <select name="modifyproduct" id="modifyproduct">
+          <option value="" selected></option>
+          <option value="prijs">Prijs</option>
+          <option value="productnummer">Productnummer</option>
+        </select>
       
-        <input type="text" name="input2" id="input2" placeholder="Input 2">
+        <input type="text" name="nieuwgegevenproduct" id="nieuwgegevenproduct" placeholder="Nieuw Gegeven">
       
-        <input type="submit" name="submit" value="submit" id="submitbuttonmodify">
+        <input type="submit" name="submitproduct" value="Invoeren" id="submitbuttonmodify">
       
       </form>
     </div>

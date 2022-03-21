@@ -89,9 +89,14 @@ html {
   border: 1px solid black;
   border-radius: 30px;
   max-width: 400px;
-  height: 200px;
+  height: 300px;
   box-shadow: 1px 1px 20px 1px;
 	padding: 15px;
+}
+
+.bestelforum input {
+	margin: 0.4rem;
+	text-align: center;
 }
 
 .bestelwrapper {
@@ -246,11 +251,7 @@ html {
 .modifyformproduct input {
 	margin: 0.3rem;
 	text-align: center;
-	max-width: min-content;
-}
-
-#submitbuttonmodify {
-	width: 6rem;
+	width: 250px;
 }
 
 .modifywrapper {

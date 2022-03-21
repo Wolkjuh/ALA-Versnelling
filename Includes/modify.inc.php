@@ -2,25 +2,26 @@
 
 include 'db.inc.php';
 
-$product = $_POST['product'];
-$klant = $_POST['klant'];
+$modifyuser = $_POST['modifyuser'];
+$modifyproduct = $_POST['modifyproduct'];
 
-$input1 = $_POST['input1'];
+$klantennummer = $_POST['klantennummer'];
+$gegevenuser = $_POST['nieuwgegevenuser'];
 
-$korting = $_POST['korting'];
-$prijs = $_POST['prijs'];
+$productnummer = $_POST['productnummer'];
+$gegevenproduct = $_POST['nieuwgegevenproduct'];
 
-$input2 = $_POST['input2'];
-if (isset($_POST['submit'])) {
-  if (isset($_POST['product'])) {
-    if (isset($_POST['prijs'])) {
-      $updateproduct = "UPDATE product SET prijs = " . $input2 . " WHERE productnummer = " . $input1;
-      $conn->query($updateproduct);
-    }
-  }
+if (isset($_POST['submituser'])) {
+  $result = "UPDATE users SET " . $modifyuser . " = " . $gegevenuser . " WHERE klantnummer = " . $klantennummer;
+  $conn->query($result);
 }
 
-header("Location: ../index.php");
+if (isset($_POST['submitproduct'])) {
+  $result = "UPDATE product SET " . $modifyproduct . " = " . $gegevenproduct . " WHERE productnummer = " . $productnummer;
+  $conn->query($result);
+}
+
+header("Location: ../modify.php");
 
 
 ?>

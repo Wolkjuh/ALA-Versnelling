@@ -5,10 +5,14 @@
 ?>
 
 <div class="bestelwrapper">
+  <?php
+      if (isset($_SESSION["useruid"])) {
+  ?>
   <section class="bestelforum">
     <h1 class="bestel-h1">Plaats bestelling</h1>
     <article class="formbestelling">
-      <form action="Includes/bestellen.inc.php" method="POST">
+      <form action="bestellen.inc.php" method="POST">
+        <input type="text" name="klantennummer" id="klantennummer" placeholder="Klantennummer">
         <input type="file" id="excelbestand" name="excelbestand" accept=".xlsx">
         <input type="submit" value="Plaats Bestelling">
       </form>
@@ -17,6 +21,10 @@
       <a href="Bestelformulier.xlsx" id="downloadtag" download>Download Bestelformat</a>
     </article>
   </section>
+  <?php
+    } 
+    
+  ?>
   <?php
     if (isset($_SESSION["useruid"])) {
       if ($_SESSION["useruid"] == "Admin") {
@@ -37,7 +45,7 @@
 
   <?php
     } 
-    }
+  }
   ?>
 </div>
 
