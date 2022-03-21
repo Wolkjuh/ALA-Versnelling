@@ -12,8 +12,13 @@ $productnummer = $_POST['productnummer'];
 $gegevenproduct = $_POST['nieuwgegevenproduct'];
 
 if (isset($_POST['submituser'])) {
-  $result = "UPDATE users SET " . $modifyuser . " = " . $gegevenuser . " WHERE klantnummer = " . $klantennummer;
-  $conn->query($result);
+  if ($_POST['modifyuser'] == "verwijder") {
+    $result = "DELETE FROM users WHERE klantnummer = '" . $klantennummer . "'";
+    $conn->query($result); 
+  } else {
+    $result = "UPDATE users SET " . $modifyuser . " = " . $gegevenuser . " WHERE klantnummer = " . $klantennummer;
+    $conn->query($result);
+  }
 }
 
 if (isset($_POST['submitproduct'])) {
