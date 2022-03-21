@@ -12,7 +12,7 @@ $productnummer = $_POST['productnummer'];
 $gegevenproduct = $_POST['nieuwgegevenproduct'];
 
 if (isset($_POST['submituser'])) {
-  if ($_POST['modifyuser'] == "verwijder") {
+  if ($_POST['modifyuser'] == "verwijder" && $_POST['klantennummer'] != "79001") {
     $result = "DELETE FROM users WHERE klantnummer = '" . $klantennummer . "'";
     $conn->query($result); 
   } else {
