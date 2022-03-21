@@ -12,7 +12,6 @@
     <h1 class="bestel-h1">Plaats bestelling</h1>
     <article class="formbestelling">
       <form action="bestellen.inc.php" method="POST">
-        <input type="text" name="klantennummer" id="klantennummer" placeholder="Klantennummer">
         <input type="file" id="excelbestand" name="excelbestand" accept=".xlsx">
         <input type="submit" value="Plaats Bestelling">
       </form>

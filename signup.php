@@ -19,7 +19,6 @@
             </form>
             <div class="registreererror">
                 <?php
-
                     if (isset($_GET["error"])) {
                         if ($_GET["error"] == "emptyimput") {
                             echo "<p>Vul alle velden in!</p>";

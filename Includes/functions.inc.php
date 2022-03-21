@@ -68,7 +68,7 @@ function uidExists($conn, $username, $email) {
 function createUser($conn, $name, $email, $username, $pwd) {
     $sql = "INSERT INTO users (usersName, usersEmail, usersUid, usersPwd) VALUES (?, ?, ?, ?)";
     $stmt = mysqli_stmt_init($conn);
-
+    $conn->query($sql);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
         header("location: ../signup.php?error=stmtfailed");
         exit();
@@ -81,6 +81,12 @@ function createUser($conn, $name, $email, $username, $pwd) {
     mysqli_stmt_close($stmt);
     header("location: ../signup.php?error=none");
     exit();
+}
+
+function updateSQL() {
+    $nieuwklantnummer = rand(1, 10000);
+    $sqlUpdate = "UPDATE users SET klantnummer = " . $nieuwklantnummer;
+    $conn->query($sqlUpdate);
 }
 
 function emptyInputLogin($username, $pwd) {

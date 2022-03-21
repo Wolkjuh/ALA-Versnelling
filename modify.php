@@ -17,9 +17,9 @@ if (isset($_SESSION["useruid"])) {
   
         <select name="modifyuser" id="modifyuser">
           <option value="" selected></option>
-          <option value="klantennummer">Klantennummer</option>
+          <option value="klantnummer">Klantennummer</option>
           <option value="korting">Korting</option>
-          <option value="email">Email</option>
+          <option value="usersEmail">Email</option>
         </select>
       
         <input type="text" name="nieuwgegevenuser" id="nieuwgegevenuser" placeholder="Nieuw Gegeven">
@@ -40,6 +40,7 @@ if (isset($_SESSION["useruid"])) {
           <option value="" selected></option>
           <option value="prijs">Prijs</option>
           <option value="productnummer">Productnummer</option>
+          <option value="naam">Productnaam</option>
         </select>
       
         <input type="text" name="nieuwgegevenproduct" id="nieuwgegevenproduct" placeholder="Nieuw Gegeven">

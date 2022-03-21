@@ -37,6 +37,7 @@ if (isset($_POST["submit"])) {
     }
 
     createUser($conn, $name, $email, $username, $pwd);
+    updateSQL();
 
 } else {
     header("location: ../signup.php");

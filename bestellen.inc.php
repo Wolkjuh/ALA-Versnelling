@@ -14,7 +14,7 @@ use PHPMailer\PHPMailer\Exception;
 $xlsx = Shuchkin\SimpleXLSX::parse($_POST['excelbestand']);	
 
 $naam = $xlsx->getCell(0, 'B6');
-$klantennummer = $xlsx->getCell(0, 'B7');
+// $klantennummer = $xlsx->getCell(0, 'B7');
 $datum = $xlsx->getCell(0, 'B8');
 $excelRows = $xlsx->rows();
 
@@ -30,11 +30,16 @@ array_push($factuurBon, $factuurBonTitel, $factuurBonNaamKlant, $factuurBonKlant
 $bestellingen = array();
 $prijs2 = 0;
 
-$nummerklant = $_POST['klantennummer'];
+$usersUid = $_SESSION['useruid'];
+$klantQuery = "SELECT klantnummer FROM users WHERE usersName = '" . $usersUid . "'";
+$klantResult = $conn->query($klantQuery);
+$klantRow = $klantResult->fetch_assoc();
+$klantnummer = $klantRow['klantnummer'];
 
-$kortingselect = "SELECT korting FROM users WHERE klantnummer = " . $klantennummer;
-$kortingResult = $conn->query($kortingselect);
-$result = mysqli_fetch_row($kortingResult);
+$kortingQuery = "SELECT korting FROM users WHERE klantnummer = " . $klantnummer;
+$kortingResult = $conn->query($kortingQuery);
+$kortingRow = $kortingResult->fetch_assoc();
+$korting = $kortingRow['korting'];
 
 foreach ($excelRows as $value) {
   if(is_numeric($value[0])) {
@@ -45,9 +50,6 @@ foreach ($excelRows as $value) {
           $HoeveelheidKg = $value[3];
           $prijs = $value[4];
           $aantal = $HoeveelheidEenheid ? $HoeveelheidEenheid : $HoeveelheidKg;
-
-
-          $korting = $result[0];
 
           $prijs2 += $value[4] * $aantal;
           $prijs2 = number_format($prijs2 / 100 * $korting, 2);
