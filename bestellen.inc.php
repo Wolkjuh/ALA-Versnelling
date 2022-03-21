@@ -4,42 +4,41 @@ include_once 'header.php';
 include_once "XLSX/simplexml.php";
 include_once "XLSX/simplexmlgen.php";
 include_once 'Includes/db.inc.php';
-require 'PHPMailer/Exeption.php';
-require 'PHPMailer/PHPMailer.php';
-require 'PHPMailer/SMTP.php';
-
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
 
 $xlsx = Shuchkin\SimpleXLSX::parse($_POST['excelbestand']);	
+$usersUid = $_SESSION['useruid'];
 
-$naam = $xlsx->getCell(0, 'B6');
-// $klantennummer = $xlsx->getCell(0, 'B7');
+$naamQuery = "SELECT usersName FROM users WHERE usersUid = '" . $usersUid . "'";
+$naamResult = $conn->query($naamQuery);
+$naamRow = $naamResult->fetch_assoc();
+$naam = $naamRow['usersName']; 
+
 $datum = $xlsx->getCell(0, 'B8');
 $excelRows = $xlsx->rows();
 
+
+$bestellingen = array();
+$prijs2 = 0;
+
+$klantQuery = "SELECT klantnummer FROM users WHERE usersUid = '" . $usersUid . "'";
+$klantResult = $conn->query($klantQuery);
+$klantRow = $klantResult->fetch_assoc();
+$klantnummer = $klantRow['klantnummer'];
+
+$kortingQuery = "SELECT korting FROM users WHERE usersUid = '" . $usersUid . "'";
+$kortingResult = $conn->query($kortingQuery);
+$kortingRow = $kortingResult->fetch_assoc();
+$korting = $kortingRow['korting'];
+$korting2 = 100 - $korting;
+
 $factuurBonTitel = array("<b>Het Fruithuisje</b>", "<b>Factuurbon</b>");
-$factuurBonNaamKlant = array("<b>Klantnaam</b>", $xlsx->getCell(0,'B6'));
-$factuurBonKlantennummer = array("<b>Klantennummer</b>", "<left>".$xlsx->getCell(0,'B7')."</left>");
+$factuurBonNaamKlant = array("<b>Klantnaam</b>", $naam);
+$factuurBonKlantennummer = array("<b>Klantennummer</b>", "<left>".$klantnummer."</left>");
 $factuurBonDatum = array("<b>Datum</b>", "<left>".$xlsx->getCell(0,'B8')."</left>");
 $factuurHeaders = array("<b>ProductID</b>","<b>Product</b>", "<b>Eenheid</b>", "<b>Kilo</b>", "<b>Prijs</b>");
 $productSpatie = array("");
 $factuurBon = array();
 array_push($factuurBon, $factuurBonTitel, $factuurBonNaamKlant, $factuurBonKlantennummer , $factuurBonDatum , $productSpatie, $factuurHeaders);
-
-$bestellingen = array();
-$prijs2 = 0;
-
-$usersUid = $_SESSION['useruid'];
-$klantQuery = "SELECT klantnummer FROM users WHERE usersName = '" . $usersUid . "'";
-$klantResult = $conn->query($klantQuery);
-$klantRow = $klantResult->fetch_assoc();
-$klantnummer = $klantRow['klantnummer'];
-
-$kortingQuery = "SELECT korting FROM users WHERE klantnummer = " . $klantnummer;
-$kortingResult = $conn->query($kortingQuery);
-$kortingRow = $kortingResult->fetch_assoc();
-$korting = $kortingRow['korting'];
 
 foreach ($excelRows as $value) {
   if(is_numeric($value[0])) {
@@ -52,7 +51,10 @@ foreach ($excelRows as $value) {
           $aantal = $HoeveelheidEenheid ? $HoeveelheidEenheid : $HoeveelheidKg;
 
           $prijs2 += $value[4] * $aantal;
-          $prijs2 = number_format($prijs2 / 100 * $korting, 2);
+          if ($korting == 0) {
+            $korting = 100;
+          }
+          $prijs2 = number_format($prijs2 / 100 * $korting2, 2);
 
           $updateSQL = "UPDATE product SET aantal = aantal-" . $aantal . " WHERE productnummer = " . $productID;
           $conn->query($updateSQL);
@@ -64,16 +66,16 @@ foreach ($excelRows as $value) {
   }
 }
 
-$totaalprijsje = array('<center></center>', '<center></center>', '<center></center>',   '<center>' . "Korting: " . $korting . "%" .'</center>',
-'<center>' . "€ " . $prijs2  . '</center>');
+if ($korting == 100) {
+  $totaalprijsje = array('<center></center>', '<center></center>', '<center></center>',   '<center>' . "Korting: " . 0 . "%" .'</center>',
+  '<center>' . "€ " . $prijs2  . '</center>');
+} else {
+  $totaalprijsje = array('<center></center>', '<center></center>', '<center></center>',   '<center>' . "Korting: " . $korting . "%" .'</center>',
+  '<center>' . "€ " . $prijs2  . '</center>');
+}
+
 
 array_push($factuurBon, $totaalprijsje);
 
-Shuchkin\SimpleXLSXGen::fromArray( $factuurBon )->saveAs("Factuurbon/Factuur_" . $naam . "_" . $klantennummer . ".xlsx");
-Shuchkin\SimpleXLSXGen::fromArray( $factuurBon )->downloadAs("Factuurbon/Factuur_" . $naam . "_" . $klantennummer . ".xlsx");
-
-
-
-
-
-
+Shuchkin\SimpleXLSXGen::fromArray( $factuurBon )->saveAs("Factuurbon/Factuur_" . $naam . "_" . $klantnummer . ".xlsx");
+Shuchkin\SimpleXLSXGen::fromArray( $factuurBon )->downloadAs("Factuurbon/Factuur_" . $naam . "_" . $klantnummer . ".xlsx");
