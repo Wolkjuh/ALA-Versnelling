@@ -20,6 +20,7 @@ if (isset($_SESSION["useruid"])) {
           <option value="klantnummer">Klantennummer</option>
           <option value="korting">Korting</option>
           <option value="usersEmail">Email</option>
+          <option value="usersUid">Gebruikersnaam</option>
           <option value="verwijder">Verwijder</option>
         </select>
       

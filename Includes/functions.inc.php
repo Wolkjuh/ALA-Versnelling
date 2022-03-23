@@ -83,11 +83,7 @@ function createUser($conn, $name, $email, $username, $pwd) {
     exit();
 }
 
-function updateSQL() {
-    $nieuwklantnummer = rand(1, 10000);
-    $sqlUpdate = "UPDATE users SET klantnummer = " . $nieuwklantnummer;
-    $conn->query($sqlUpdate);
-}
+
 
 function emptyInputLogin($username, $pwd) {
     $result;

@@ -16,7 +16,7 @@ if (isset($_POST['submituser'])) {
     $result = "DELETE FROM users WHERE klantnummer = '" . $klantennummer . "'";
     $conn->query($result); 
   } else {
-    $result = "UPDATE users SET " . $modifyuser . " = " . $gegevenuser . " WHERE klantnummer = " . $klantennummer;
+    $result = "UPDATE users SET " . $modifyuser . " = '" . $gegevenuser . "' WHERE klantnummer = " . $klantennummer;
     $conn->query($result);
   }
 }
@@ -27,6 +27,5 @@ if (isset($_POST['submitproduct'])) {
 }
 
 header("Location: ../modify.php");
-
 
 ?>
