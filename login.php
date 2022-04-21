@@ -7,17 +7,17 @@
   <form class="login-form" action="Includes/login.inc.php" method="post">
     <input type="text" name="uid" placeholder="Gebruikersnaam / Email...">
     <input type="password" name="pwd" placeholder="Wachtwoord...">
-    <button type="submit" name="submit">Log In!</button>
+    <button type="submit" name="submit" id="login">Log In!</button>
   </form>
 
   <?php
 
     if (isset($_GET["error"])) {
       if ($_GET["error"] == "emptyimput") {
-        echo "<p>Vul alle velden in!</p>";
+        echo "<p class='login-register-bericht'>Vul alle velden in!</p>";
       }
       else if ($_GET["error"] == "wronglogin") {
-        echo "<p>De opgegeven login is incorrect!</p>";
+        echo "<p class='login-register-bericht'>De opgegeven login is incorrect!</p>";
       }
     }
   ?>

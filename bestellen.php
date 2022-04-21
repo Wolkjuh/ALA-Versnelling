@@ -7,22 +7,21 @@
 <div class="bestelwrapper">
   <?php
       if (isset($_SESSION["useruid"])) {
-  ?>
-  <section class="bestelforum">
-    <h1 class="bestel-h1">Plaats bestelling</h1>
-    <article class="formbestelling">
-      <form action="bestellen.inc.php" method="POST">
-        <input type="file" id="excelbestand" name="excelbestand" accept=".xlsx">
-        <input type="submit" value="Plaats Bestelling">
-      </form>
-    </article>
-    <article class="downloadtag">
-      <a href="Bestelformulier.xlsx" id="downloadtag" download>Download Bestelformat</a>
-    </article>
-  </section>
-  <?php
+   ?>       
+          <section class="bestelforum">
+            <h1 class="bestel-h1">Plaats bestelling</h1>
+            <article class="formbestelling">
+              <form action="bestellen.inc.php" method="POST">
+                <input type="file" id="excelbestand" name="excelbestand" accept=".xlsx">
+                <input type="submit" value="Plaats Bestelling">
+              </form>
+            </article>
+            <article class="downloadtag">
+              <a href="Bestelformulier.xlsx" id="downloadtag" download>Download Bestelformat</a>
+            </article>
+          </section>
+          <?php
     } 
-    
   ?>
   <?php
     if (isset($_SESSION["useruid"])) {

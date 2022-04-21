@@ -21,25 +21,25 @@
                 <?php
                     if (isset($_GET["error"])) {
                         if ($_GET["error"] == "emptyimput") {
-                            echo "<p>Vul alle velden in!</p>";
+                            echo "<p class='login-register-bericht'>Vul alle velden in!</p>";
                         }
                         else if ($_GET["error"] == "invaliduid") {
-                            echo "<p>Kies een goede gebruikersnaam!</p>";
+                            echo "<p class='login-register-bericht'>Kies een goede gebruikersnaam!</p>";
                         }
                         else if ($_GET["error"] == "invalidemail") {
-                            echo "<p>Kies een goede email!</p>";
+                            echo "<p class='login-register-bericht'>Kies een goede email!</p>";
                         }
                         else if ($_GET["error"] == "passwordsdontmatch") {
-                            echo "<p>Wachtwoorden komen niet overeen!</p>";
+                            echo "<p class='login-register-bericht'>Wachtwoorden komen niet overeen!</p>";
                         }
                         else if ($_GET["error"] == "stmtfailed") {
-                            echo "<p>Iets is niet goedgegaan, probeer het opnieuw!</p>";
+                            echo "<p class='login-register-bericht'>Iets is niet goedgegaan, probeer het opnieuw!</p>";
                         }
                         else if ($_GET["error"] == "usernametaken") {
-                            echo "<p>Gebruikersnaam bestaat al!</p>";
+                            echo "<p class='login-register-bericht'>Gebruikersnaam bestaat al!</p>";
                         }
                         else if ($_GET["error"] == "none") {
-                            echo "<p>U bent succesvol geregistreerd!</p>";
+                            echo "<p class='login-register-bericht'>U bent succesvol geregistreerd!</p>";
                         }
                     }
                     ?>

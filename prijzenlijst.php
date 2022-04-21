@@ -22,16 +22,16 @@ if ($result = $conn->query($sql)) {
   while ($row = $result->fetch_row()) {
     echo "<tr>";
     echo "<td style='border:1px solid black;text-align:center;padding:6px;background-color:rgb(117, 226, 117);box-shadow: 1px 1px 20px 1px'>";
+    echo $row[0]; 
+    echo "</td>";
+    echo "<td style='border:1px solid black;text-align:center;padding:6px;background-color:rgb(117, 226, 117);box-shadow: 1px 1px 20px 1px'>";
     echo $row[1]; 
     echo "</td>";
     echo "<td style='border:1px solid black;text-align:center;padding:6px;background-color:rgb(117, 226, 117);box-shadow: 1px 1px 20px 1px'>";
-    echo $row[2]; 
+    echo "€ " . $row[2]; 
     echo "</td>";
     echo "<td style='border:1px solid black;text-align:center;padding:6px;background-color:rgb(117, 226, 117);box-shadow: 1px 1px 20px 1px'>";
-    echo "€ " . $row[3]; 
-    echo "</td>";
-    echo "<td style='border:1px solid black;text-align:center;padding:6px;background-color:rgb(117, 226, 117);box-shadow: 1px 1px 20px 1px'>";
-    echo $row[4]; 
+    echo $row[3]; 
     echo "</td>";
     echo "</tr>";
   }
@@ -39,8 +39,6 @@ if ($result = $conn->query($sql)) {
   echo "</div>";
   $result->close();
 }
-
-
 ?>
 
 <?php

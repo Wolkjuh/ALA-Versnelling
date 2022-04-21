@@ -3,28 +3,23 @@ include_once 'header.php';
 include_once "XLSX/simplexml.php";
 include_once "XLSX/simplexmlgen.php";
 include_once 'Includes/db.inc.php';
-require 'PHPMailer/Exeption.php';
-require 'PHPMailer/PHPMailer.php';
-require 'PHPMailer/SMTP.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 $xlsx = Shuchkin\SimpleXLSX::parse($_POST['excelbestand']);	
 
-$naam = $xlsx->getCell(0, 'B6');
-$klantennummer = $xlsx->getCell(0, 'B7');
+$naam = "'T Fruithuisje";
 $datum = $xlsx->getCell(0, 'B8');
 $excelRows = $xlsx->rows();
 
 $factuurBonTitel = array("<b>Het Fruithuisje</b>", "<b>Factuurbon</b>");
-$factuurBonNaamKlant = array("<b>Klantnaam</b>", $xlsx->getCell(0,'B6'));
-$factuurBonKlantennummer = array("<b>Klantennummer</b>", "<left>".$xlsx->getCell(0,'B7')."</left>");
+$factuurBonNaamKlant = array("<b>Klantnaam</b>", $naam);
 $factuurBonDatum = array("<b>Datum</b>", "<left>".$xlsx->getCell(0,'B8')."</left>");
 $factuurHeaders = array("<b>ProductID</b>","<b>Product</b>", "<b>Eenheid</b>", "<b>Kilo</b>", "<b>Prijs</b>");
 $productSpatie = array("");
 $factuurBon = array();
-array_push($factuurBon, $factuurBonTitel, $factuurBonNaamKlant, $factuurBonKlantennummer , $factuurBonDatum , $productSpatie, $factuurHeaders);
+array_push($factuurBon, $factuurBonTitel, $factuurBonNaamKlant , $factuurBonDatum , $productSpatie, $factuurHeaders);
 
 $bestellingen = array();
 $prijs2 = 0;
@@ -40,12 +35,10 @@ foreach ($excelRows as $value) {
           $aantal = $HoeveelheidEenheid ? $HoeveelheidEenheid : $HoeveelheidKg;
           $prijs2 += $value[4] * $aantal;
 
-
           $updateSQL = "UPDATE product SET aantal = aantal+" . $aantal . " WHERE productnummer = " . $productID;
           $conn->query($updateSQL);
 
-          // $vulbijSQL = "UPDATE product SET aantal = aantal+" . $aantal + $aantal / 2 . " WHERE productnummer = " . $productID;
-          // $conn->query($vulbijSQL);
+          
 
           $huidigeProduct = array('<center>' . $productID . '</center>', '<center>' . $productNaam . '</center>', '<center>' . $HoeveelheidEenheid . '</center>',   '<center>' . $HoeveelheidKg . '</center>',
            '<center>' . "€ " . $prijs . '</center>');
@@ -60,7 +53,7 @@ $totaalprijsje = array('<center></center>', '<center></center>', '<center></cent
 
 array_push($factuurBon, $totaalprijsje);
 
-Shuchkin\SimpleXLSXGen::fromArray( $factuurBon )->downloadAs("Factuurbon/Inkoopbon_" . $naam . "_" . $klantennummer . ".xlsx");
+Shuchkin\SimpleXLSXGen::fromArray( $factuurBon )->downloadAs("Inkoopbon_Fruithuisje.xlsx");
 header('Location: ../prijzenlijst.php');
 
 ?>

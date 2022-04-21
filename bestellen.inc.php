@@ -34,11 +34,10 @@ $korting2 = 100 - $korting;
 $factuurBonTitel = array("<b>Het Fruithuisje</b>", "<b>Factuurbon</b>");
 $factuurBonNaamKlant = array("<b>Klantnaam</b>", $naam);
 $factuurBonKlantennummer = array("<b>Klantennummer</b>", "<left>".$klantnummer."</left>");
-$factuurBonDatum = array("<b>Datum</b>", "<left>".$xlsx->getCell(0,'B8')."</left>");
 $factuurHeaders = array("<b>ProductID</b>","<b>Product</b>", "<b>Eenheid</b>", "<b>Kilo</b>", "<b>Prijs</b>");
 $productSpatie = array("");
 $factuurBon = array();
-array_push($factuurBon, $factuurBonTitel, $factuurBonNaamKlant, $factuurBonKlantennummer , $factuurBonDatum , $productSpatie, $factuurHeaders);
+array_push($factuurBon, $factuurBonTitel, $factuurBonNaamKlant, $factuurBonKlantennummer , $productSpatie, $factuurHeaders);
 
 foreach ($excelRows as $value) {
   if(is_numeric($value[0])) {
@@ -54,10 +53,13 @@ foreach ($excelRows as $value) {
           if ($korting == 0) {
             $korting = 100;
           }
-          $prijs2 = number_format($prijs2 / 100 * $korting2, 2);
+          $prijs3 = number_format($prijs2 / 100 * $korting2, 2);
 
           $updateSQL = "UPDATE product SET aantal = aantal-" . $aantal . " WHERE productnummer = " . $productID;
           $conn->query($updateSQL);
+
+          $insertSQL = "INSERT INTO inkooplijst (productnummer, productnaam, aantal) VALUES ('$productID', '". $productNaam ."','$aantal');";
+          $conn->query($insertSQL);
 
           $huidigeProduct = array('<center>' . $productID . '</center>', '<center>' . $productNaam . '</center>', '<center>' . $HoeveelheidEenheid . '</center>',   '<center>' . $HoeveelheidKg . '</center>',
            '<center>' . "€ " . $prijs . '</center>');
@@ -68,14 +70,16 @@ foreach ($excelRows as $value) {
 
 if ($korting == 100) {
   $totaalprijsje = array('<center></center>', '<center></center>', '<center></center>',   '<center>' . "Korting: " . 0 . "%" .'</center>',
-  '<center>' . "€ " . $prijs2  . '</center>');
+  '<center>' . "€ " . $prijs3  . '</center>');
 } else {
   $totaalprijsje = array('<center></center>', '<center></center>', '<center></center>',   '<center>' . "Korting: " . $korting . "%" .'</center>',
-  '<center>' . "€ " . $prijs2  . '</center>');
+  '<center>' . "€ " . $prijs3  . '</center>');
 }
-
 
 array_push($factuurBon, $totaalprijsje);
 
-Shuchkin\SimpleXLSXGen::fromArray( $factuurBon )->saveAs("Factuurbon/Factuur_" . $naam . "_" . $klantnummer . ".xlsx");
-Shuchkin\SimpleXLSXGen::fromArray( $factuurBon )->downloadAs("Factuurbon/Factuur_" . $naam . "_" . $klantnummer . ".xlsx");
+$insertBestelling = "INSERT INTO bestelling (klantNummer, klantNaam, bestellingStatus) VALUES ('$klantnummer','$naam','onvoltooid');";
+$conn->query($insertBestelling);
+
+Shuchkin\SimpleXLSXGen::fromArray( $factuurBon )->saveAs("Factuurbon/Pakbon_" . $klantnummer . ".xlsx");
+Shuchkin\SimpleXLSXGen::fromArray( $factuurBon )->downloadAs("Factuurbon/Factuur_" . $klantnummer . ".xlsx");

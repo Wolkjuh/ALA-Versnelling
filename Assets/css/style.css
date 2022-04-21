@@ -44,7 +44,15 @@ html {
   font-size: 55px;
   text-align: center;
   margin: 100px 0 0 700px;
-  text-shadow: 1px 2px;
+	color: rgba(64, 64, 64, 0.944);
+  /* text-shadow: 1px 2px; */
+}
+
+.logo {
+	flex-direction: column;
+	display: flex;
+	flex: 1;
+	column-gap: 10px;
 }
 
 .logo {
@@ -139,6 +147,7 @@ html {
 	text-align: center;
 	margin-top: 10px;
 	margin-bottom: 5px;
+	margin-left: 55px;
 	border-radius: 20px;
 	box-shadow: 2px 2px;
 	border-color: black;
@@ -197,6 +206,7 @@ html {
 	text-align: center;
 	margin-top: 10px;
 	margin-bottom: 5px;
+	margin-left: 55px;
 	border-radius: 20px;
 	box-shadow: 2px 2px;
 	border-color: black;
@@ -224,6 +234,10 @@ html {
   height: 50vh;
   width: 40vw;
   overflow-y: scroll;
+}
+
+.bestellingtable {
+	border: 20px black solid;
 }
 
 /* MODIFY FORM */
@@ -256,4 +270,27 @@ html {
 
 .modifywrapper {
 	display: flex;
+}
+
+.gegevens-container {
+	display: flex;
+	border: 1px black solid;
+	border-radius: 30px;
+	background-color: beige;
+	height: 200px;
+	width: 300px;
+	margin: 6rem;
+	padding: 3rem;
+	flex-direction: column;
+	font-size: 10px;
+}
+
+.bedrijfsgegevens {
+	margin-top: 1.2rem;
+}
+
+.login-register-bericht{
+	margin: 2rem;
+	text-align: center;
+	color: white;
 }
